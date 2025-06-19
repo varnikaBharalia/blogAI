@@ -1,0 +1,160 @@
+import { useEffect, useRef, useState } from "react";
+import "./LoginForm.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import UseUser from "../UserContext/UserContext";
+
+
+
+export default function LoginForm() {
+  const { setCurrentUser, setAllBlogs } = UseUser();
+  const navigate = useNavigate(); 
+
+  const containerRef = useRef(null);
+  const signUpRef = useRef(null);
+  const signInRef = useRef(null);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post("http://localhost:3000/user/signup", {
+        name,
+        email,
+        password,
+      });
+      toast.success("Signup successful!");
+      const container = containerRef.current;
+      navigate("/signin");
+      container.classList.remove("right-panel-active");
+
+    } catch (error) {
+      toast.error("Signup failed. Please try again.");
+      console.error("Signup error:", error.response?.data || error.message);
+    }
+  };
+
+  const handleSignin = async (e) => {
+    e.preventDefault();
+    console.log("From handleSignin");
+
+    try {
+      const res = await axios.post("http://localhost:3000/user/signin", {
+        email,
+        password,
+      });
+
+      console.log("Response from signin:", res.status);
+
+      toast.success("Login successful!");
+      
+      // ✅ Destructure user and blogs
+      const { user, blogs } = res.data;
+      setCurrentUser(user);
+      setAllBlogs(blogs);
+      navigate("/home");
+
+    } catch (error) {
+      // ✅ Axios automatically jumps here if status is not 2xx
+      toast.error("Invalid credentials");
+      console.error("Signin error:", error.response?.data || error.message);
+    }
+  };
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const signUpBtn = signUpRef.current;
+    const signInBtn = signInRef.current;
+
+    const addPanel = () => container.classList.add("right-panel-active");
+    const removePanel = () => container.classList.remove("right-panel-active");
+
+    signUpBtn.addEventListener("click", addPanel);
+    signInBtn.addEventListener("click", removePanel);
+
+    return () => {
+      signUpBtn.removeEventListener("click", addPanel);
+      signInBtn.removeEventListener("click", removePanel);
+    };
+    // 🧠 This only runs when the component is about to be removed from the screen, 
+    // like when you change the page.
+  }, []);
+
+  return (
+    <div className="container" ref={containerRef}>
+
+      {/* Sign Up Form */}
+      <div className="form-container sign-up-container">
+        <form onSubmit={handleSignup}>
+          <h1>Create Account</h1>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+          />
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+
+      {/* Sign In Form */}
+      <div className="form-container sign-in-container">
+        <form onSubmit={handleSignin}>
+          <h1>Login</h1>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+          <a href="#">Forgot your password?</a>
+          <button type="submit">Sign In</button>
+        </form>
+      </div>
+
+      {/* Overlay Panels */}
+      <div className="overlay-container">
+        <div className="overlay">
+          <div className="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <p>Please login with your personal info</p>
+            <button className="ghost" ref={signInRef}>Sign In</button>
+          </div>
+          <div className="overlay-panel overlay-right">
+            <h1>Hello, Friend!</h1>
+            <p>Enter your personal details to get started</p>
+            <button className="ghost" ref={signUpRef}>Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
