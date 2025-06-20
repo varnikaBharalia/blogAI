@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import UseUser from "../UserContext/UserContext";
+import axiosInstance from "../API/axiosInstance"
 
 
 
@@ -23,7 +24,7 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:3000/user/signup", {
+      const res = await axiosInstance.post("/user/signup", {
         name,
         email,
         password,
@@ -44,7 +45,7 @@ export default function LoginForm() {
     console.log("From handleSignin");
 
     try {
-      const res = await axios.post("http://localhost:3000/user/signin", {
+      const res = await axiosInstance.post("/user/signin", {
         email,
         password,
       });

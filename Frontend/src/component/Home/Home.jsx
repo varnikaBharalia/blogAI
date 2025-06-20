@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import UseUser from "../UserContext/UserContext";
 import { Link } from 'react-router-dom';
 import "./Home.css";
+import axiosInstance from "../API/axiosInstance"
+const baseURL = axiosInstance.defaults.baseURL;
 export default function Home() {
   const navigate = useNavigate();
   const { CurrentUser: user, AllBlogs: blogs } = UseUser();
@@ -30,7 +32,7 @@ export default function Home() {
             >
               <div style={{ width: "100%", height: "200px", overflow: "hidden" }}>
                 <img
-                  src={`http://localhost:3000${blog.coverImage}`}
+                  src={`${baseURL}${blog.coverImage}`}
                   alt={blog.title}
                   className="w-full h-full object-cover"
                   onError={(e) => {

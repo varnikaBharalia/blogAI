@@ -5,6 +5,8 @@ import UseUser from "../UserContext/UserContext";
 import toast from "react-hot-toast";
 import "./Blog.css";
 import Home from "../Home/Home";
+import axiosInstance from "../API/axiosInstance"
+const baseURL = axiosInstance.defaults.baseURL;
 
 export default function ViewBlog() {
   const { id } = useParams();
@@ -18,7 +20,8 @@ export default function ViewBlog() {
   useEffect(() => {
     async function fetchBlog() {
       try {
-        const res = await axios.get(`http://localhost:3000/blog/${id}`);
+        const res = await axiosInstance.get(`/blog/${id}`);
+
         // console.log("Fetched blog data: issssss", res.data); // Log the fetched blog data
         setBlog(res.data.blog);
         
@@ -34,7 +37,7 @@ export default function ViewBlog() {
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:3000/blog/comment/${id}`, {
+      await axiosInstance.post(`/blog/comment/${id}`, {
         content,
         user,
       });
@@ -54,7 +57,7 @@ export default function ViewBlog() {
 
       <div className="blog-image-wrapper">
         <img
-          src={`http://localhost:3000${blog.coverImage}`}
+          src={`${baseURL}${blog.coverImage}`}
           alt="Blog Cover"
           className="blog-cover-image"
           style={{ width: "500px", height: "300px", objectFit: "cover" }}
@@ -64,7 +67,7 @@ export default function ViewBlog() {
 
       <div className="blog-author-wrapper">
         <img
-          src={`http://localhost:3000${blog.createdBy.profileImage}`}
+          src={`${baseURL}${blog.createdBy.profileImage}`}
           alt="Author"
           className="blog-author-image"
           style={{ width: "50px", height: "50px" }}
@@ -98,7 +101,7 @@ export default function ViewBlog() {
             <div key={comment._id} className="comment-card">
               <div className="comment-card-header">
                 <img
-                  src={`http://localhost:3000${comment.createdBy.profileImage}`}
+                  src={`${baseURL}${comment.createdBy.profileImage}`}
                   alt="User"
                   className="comment-user-image"
                   style={{ width: "40px", height: "40px" }}

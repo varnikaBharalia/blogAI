@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import UseUser from "../UserContext/UserContext";
 import "./AddBlog.css";
+import axiosInstance from "../API/axiosInstance";
 
 export default function AddBlog() {
   const { CurrentUser, setAllBlogs } = UseUser();
@@ -30,7 +31,7 @@ export default function AddBlog() {
     formData.append("userId", CurrentUser.id);
 
     try {
-      const res = await axios.post("http://localhost:3000/blog/addNewBlog", formData, {
+      const res = await axiosInstance.post("/blog/addNewBlog", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
