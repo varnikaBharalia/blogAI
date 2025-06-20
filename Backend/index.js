@@ -35,7 +35,10 @@ app.use(cookieParser());
 app.use(checkForAuthenticationCookie("token"));
 
 app.use('/user',userRoutes);
-app.use('/', staticRoutes);
+// app.use('/', staticRoutes);
 app.use("/blog",blogRoutes);
+app.get('/', (req, res) => {
+  res.send("Welcome to the Blog API");
+});
 
 app.listen(port,()=>{console.log(`Server is running on port ${port}`)});
