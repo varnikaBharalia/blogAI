@@ -29,10 +29,12 @@ const Contact = () => {
         </div>
 
         <Button
+        className="email_form_btn"
           is_outline={true}
           text="VAI EMAIL FORM"
           icon={<MdOutlineMessage fontSize="1.3rem" />}
         />
+
 
         <form onSubmit={onSubmit}>
           <div className="form_control">

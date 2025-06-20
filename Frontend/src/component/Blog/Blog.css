@@ -151,6 +151,27 @@ Blog.css
   .comment-button {
     width: 100%;
     margin-top: 0.5rem;
+  } 
+}
+@media screen and (max-width: 768px) {
+  .blog-container {
+    width: 100%;
   }
-  
+  .blog-body {
+    font-size: 1.5rem;
+  }
+  .comment-input {
+    width: 80%;
+  }
+    .comment-form {
+      flex-direction: column;
+      align-items: center;
+    }
+    .comment-button {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    .home-container{
+      display: none;
+    }
 }
