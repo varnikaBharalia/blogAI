@@ -17,7 +17,7 @@ import "./index.css";
 import Layout from "../Layout/Layout";
 
 import { UserProvider } from "./component/UserContext/UserContext";
-import AddBlog from "./component/AddBlog/addBlog";
+import AddBlog from "./component/AddBlog/AddBlog";
 import Blog from "./component/Blog/Blog";
 
 const router = createBrowserRouter([
