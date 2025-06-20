@@ -19,7 +19,8 @@ const Contact = () => {
       <div className="form_container">
         <div className="form_btns">
           <Button
-            text="VAI SUPPORT CHAT"
+          // is_outline={true}
+            text="VAI EMAIL FORM"
             icon={<MdOutlineMessage fontSize="1rem" />}
           />
           <Button
@@ -27,15 +28,6 @@ const Contact = () => {
             icon={<IoCallOutline fontSize="1rem" />}
           />
         </div>
-
-        <Button
-        className="email_form_btn"
-          is_outline={true}
-          text="VAI EMAIL FORM"
-          icon={<MdOutlineMessage fontSize="1.3rem" />}
-        />
-
-
         <form onSubmit={onSubmit}>
           <div className="form_control">
             <label htmlFor="name">Name</label>
