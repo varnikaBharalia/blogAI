@@ -57,7 +57,7 @@ export default function ViewBlog() {
 
       <div className="blog-image-wrapper">
         <img
-          src={`${baseURL}${blog.coverImage}`}
+          src={blog.coverImage}
           alt="Blog Cover"
           className="blog-cover-image"
           style={{ width: "500px", height: "300px", objectFit: "cover" }}
@@ -67,7 +67,7 @@ export default function ViewBlog() {
 
       <div className="blog-author-wrapper">
         <img
-          src={`${baseURL}${blog.createdBy.profileImage}`}
+          src={blog.createdBy.profileImage}
           alt="Author"
           className="blog-author-image"
           style={{ width: "50px", height: "50px" }}
