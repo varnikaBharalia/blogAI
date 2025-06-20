@@ -3,40 +3,35 @@ const Blog = require("../models/blog");
 const Comment = require("../models/comment");
 const multer = require("multer");
 const path = require("path");
-const { console } = require("inspector");
+const { storage } = require("../service/cloudinary");
 
 const router = Router();
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.resolve(`./public/uploads/`));
-  },
-  filename: function (req, file, cb) {
-    const fileName = `${Date.now()}-${file.originalname}`;
-    cb(null, fileName);
-  },
-});
 
 const upload = multer({ storage: storage });
 
 router.post("/addNewBlog", upload.single("coverImage"), async (req, res) => {
-  console.log("req from backend is ", req.body);
-  console.log(req.file);
+  try {
+    
+    console.log("req.file from Cloudinary:", req.file);
 
-  const { title, body, userId } = req.body;
+    const { title, body, userId } = req.body;
 
-  if (!userId) {
-    return res.status(400).json({ error: "Missing userId" });
+    if (!userId) {
+      return res.status(400).json({ error: "Missing userId" });
+    }
+
+    const blog = await Blog.create({
+      title,
+      body,
+      coverImage: req.file.path,
+      createdBy: userId,
+    });
+
+    res.status(201).json({ blog });
+  } catch (err) {
+    console.error("Error while creating blog:", err);
+    return res.status(500).json({ error: "Failed to create blog" });
   }
-
-  const blog = await Blog.create({
-    title,
-    body,
-    coverImage: `/uploads/${req.file.filename}`,
-    createdBy: userId,
-  });
-
-  res.status(201).json({ blog });
 });
 
 router.get("/:id", async (req, res) => {

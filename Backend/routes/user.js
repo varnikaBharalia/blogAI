@@ -6,6 +6,7 @@ const { generateToken } = require("../service/auth");
 
 const router = Router();
 
+
 router.post("/signup", async (req, res) => {
   if(!req.body || !req.body.name || !req.body.email || !req.body.password) {
     return res.status(400).json({ error: "Name, email, and password are required" })};
