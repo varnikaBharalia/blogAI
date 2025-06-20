@@ -7,7 +7,6 @@ const blogRoutes = require('./routes/blog');
 const checkForAuthenticationCookie = require('./middleware/auth');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const { connect } = require('http2');
 const connectDB = require('./db/Connect');
 
 connectDB();
@@ -15,16 +14,13 @@ connectDB();
 const app = express();
 const port = 3000;
 
-
-app.use(cors());
+pp.use(cors({
+  origin: "https://blogigy-frontend.vercel.app",
+//   credentials: true, // if you're using cookies or authentication
+}));
 app.use(express.json());
 
 
-// Allow requests from frontend (localhost:5173)
-// app.use(cors({
-//   origin: "http://localhost:5173", // NOT "*"
-//   credentials: true,               // Allow cookies, sessions, etc.
-// }));
 
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 app.use(express.static(path.resolve('./public')));
