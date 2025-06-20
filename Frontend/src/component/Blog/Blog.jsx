@@ -67,7 +67,7 @@ export default function ViewBlog() {
 
       <div className="blog-author-wrapper">
         <img
-          src={blog.createdBy.profileImage}
+          src={`${baseURL}${blog.createdBy.profileImage}`}
           alt="Author"
           className="blog-author-image"
           style={{ width: "50px", height: "50px" }}

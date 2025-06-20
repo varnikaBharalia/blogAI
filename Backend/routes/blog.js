@@ -11,7 +11,7 @@ const upload = multer({ storage: storage });
 
 router.post("/addNewBlog", upload.single("coverImage"), async (req, res) => {
   try {
-    
+
     console.log("req.file from Cloudinary:", req.file);
 
     const { title, body, userId } = req.body;
@@ -55,7 +55,7 @@ router.post("/comment/:id", async (req, res) => {
     await Comment.create({
       content: req.body.content,
       blogId: req.params.id,
-      createdBy: req.body.user.id, // ✅ Correct: using user from body
+      createdBy: req.body.user.id, 
     });
 
     return res.status(201).json({ message: "Comment created successfully" });

@@ -21,8 +21,7 @@ app.use(cors({
 app.use(express.json());
 
 
-
-app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use(express.static(path.resolve('./public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
