@@ -14,7 +14,7 @@ connectDB();
 const app = express();
 const port = 3000;
 
-pp.use(cors({
+app.use(cors({
   origin: "https://blogigy-frontend.vercel.app",
 //   credentials: true, // if you're using cookies or authentication
 }));
