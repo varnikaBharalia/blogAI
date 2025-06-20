@@ -16,7 +16,7 @@ const Contact = () => {
 
   return (
     <div className="Content_form">
-      <div>
+      <div className="form_container">
         <div className="form_btns">
           <Button
             text="VAI SUPPORT CHAT"
@@ -74,7 +74,7 @@ const Contact = () => {
         </form>
       </div>
 
-      <div>
+      <div className="social_icons">
         <img src="image/social.svg" alt="social" />
       </div>
     </div>

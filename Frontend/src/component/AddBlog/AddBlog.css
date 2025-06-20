@@ -59,3 +59,21 @@
 .submit-button:hover {
   background-color: #0056b3;
 }
+
+@media screen and (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group label {
+    width: auto;
+    margin-bottom: 5px;
+  }
+
+  .submit-button {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+}

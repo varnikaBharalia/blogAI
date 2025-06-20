@@ -94,6 +94,7 @@ export default function LoginForm() {
         <form onSubmit={handleSignup}>
           <h1>Create Account</h1>
           <input
+          className="input-field"
             type="text"
             name="name"
             value={name}
@@ -101,6 +102,7 @@ export default function LoginForm() {
             placeholder="Name"
           />
           <input
+            className="input-field"
             type="email"
             name="email"
             value={email}
@@ -108,6 +110,7 @@ export default function LoginForm() {
             placeholder="Email"
           />
           <input
+            className="input-field"
             type="password"
             name="password"
             value={password}
@@ -123,6 +126,7 @@ export default function LoginForm() {
         <form onSubmit={handleSignin}>
           <h1>Login</h1>
           <input
+          className="input-field"
             type="email"
             name="email"
             value={email}
@@ -130,6 +134,7 @@ export default function LoginForm() {
             placeholder="Email"
           />
           <input
+            className="input-field"
             type="password"
             name="password"
             value={password}

@@ -123,3 +123,34 @@ Blog.css
 .home-container{
     width: 70%;
 }
+
+@media screen and (max-width: 768px) {
+  .blog-container {
+    width: 90%;
+  }
+
+  .blog-title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .blog-body {
+    font-size: 1.25rem;
+    line-height: 1.75;
+  }
+
+  .comment-input {
+    width: 100%;
+  }
+
+  .comment-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .comment-button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  
+}
