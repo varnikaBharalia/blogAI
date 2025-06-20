@@ -32,7 +32,7 @@ export default function Home() {
             >
               <div style={{ width: "100%", height: "200px", overflow: "hidden" }}>
                 <img
-                  src={`${baseURL}${blog.coverImage}`}
+                  src={blog.coverImage}
                   alt={blog.title}
                   className="w-full h-full object-cover"
                   onError={(e) => {
