@@ -12,7 +12,7 @@ import LoginForm from "./component/Login/LoginForm";
 import Home from "./component/Home/Home";
 import About from "./component/About/About";
 import Contact from "./component/Contact/Contact";
-import Github from "./component/GitHub/GitHub";
+import Github from "./component/Github/Github";
 import "./index.css";
 import Layout from "../Layout/Layout";
 
