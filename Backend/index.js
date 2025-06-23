@@ -15,7 +15,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors({
-  origin: "https://blogigy-frontend.vercel.app",
+  origin: "https://blogigy-frontend.vercel.app" || "http://localhost:5173", // replace with your frontend URL
 //   credentials: true, // if you're using cookies or authentication
 }));
 app.use(express.json());

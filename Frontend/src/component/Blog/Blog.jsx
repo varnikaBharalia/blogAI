@@ -49,7 +49,7 @@ export default function ViewBlog() {
     }
   };
 
-  if (!blog) return <p>Loading...</p>;
+  if (!blog) return <p className="loading">Loading...</p>;
 
   return (
     <div className="blog-container">
