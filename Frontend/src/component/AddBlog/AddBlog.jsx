@@ -53,7 +53,7 @@ export default function AddBlog() {
       });
 
       toast.success("Blog created successfully!");
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       toast.error("Failed to create blog.");
       console.error(error.response?.data || error.message);
