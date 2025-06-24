@@ -15,17 +15,17 @@ connectDB();
 const app = express();
 const port = 3000;
 
-// app.use(cors({
-//   origin: "https://blogigy-frontend.vercel.app",
-//   credentials: true, // if you're using cookies or authentication
-// }));
-// app.use(express.json());
-
 app.use(cors({
-  origin: "http://localhost:5173", // Change this to your frontend URL
+  origin: "https://blogigy-frontend.vercel.app",
   credentials: true, // if you're using cookies or authentication
 }));
 app.use(express.json());
+
+// app.use(cors({
+//   origin: "http://localhost:5173", // Change this to your frontend URL
+//   credentials: true, // if you're using cookies or authentication
+// }));
+// app.use(express.json());
 
 
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
