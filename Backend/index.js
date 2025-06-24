@@ -17,15 +17,15 @@ const port = 3000;
 
 app.use(cors({
   origin: "https://blogigy-frontend.vercel.app",
-  credentials: true, // if you're using cookies or authentication
+  credentials: true,
 }));
-app.use(express.json());
 
 // app.use(cors({
-//   origin: "http://localhost:5173", // Change this to your frontend URL
-//   credentials: true, // if you're using cookies or authentication
+//   origin: "http://localhost:5173", 
+//   credentials: true,
 // }));
-// app.use(express.json());
+
+app.use(express.json());
 
 
 app.use('/images', express.static(path.join(__dirname, 'public/images')));

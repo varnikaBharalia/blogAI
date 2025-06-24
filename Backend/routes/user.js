@@ -41,7 +41,7 @@ router.post("/signin", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     // console.log("User found:-->", user);
-    if (!user) {
+    if (!user && password === user.password) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
@@ -52,8 +52,8 @@ router.post("/signin", async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        sameSite: "Lax", // "None" if using cross-origin in production with HTTPS
-        secure: false, // true if using HTTPS (e.g., on Vercel)
+        sameSite: "None", // "None" if using cross-origin in production with HTTPS
+        secure: true, // true if using HTTPS (e.g., on Vercel)
       })
       .status(200)
       .json({
@@ -69,8 +69,8 @@ router.get("/logOut", (req, res) => {
   console.log("Logging out user");
   res.clearCookie("token", {
     httpOnly: true,
-    sameSite: "Lax", // or "None" if cross-site
-    secure: false     // true if using HTTPS
+    sameSite: "None",
+    secure: true
   });
   res.json({ message: "Logged out successfully" });
 });
