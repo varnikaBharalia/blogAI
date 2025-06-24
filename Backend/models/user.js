@@ -10,9 +10,6 @@ const userSchema = new Schema({
         required:true,
         unique:true
     },
-    salt:{
-        type:String,
-    },
     password:{
         type:String,
         required:true
