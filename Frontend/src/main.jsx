@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import {
   createBrowserRouter,
   RouterProvider,
-  Navigate,
 } from "react-router-dom";
 
 import {Toaster} from "react-hot-toast";
@@ -13,22 +12,22 @@ import Home from "./component/Home/Home";
 import About from "./component/About/About";
 import Contact from "./component/Contact/Contact";
 import Github from "./component/Github/Github";
-import "./index.css";
 import Layout from "../Layout/Layout";
-
 import { UserProvider } from "./component/UserContext/UserContext";
 import AddBlog from "./component/AddBlog/AddBlog";
 import Blog from "./component/Blog/Blog";
+import NotFound from "./component/NotFound/NotFound";
+import "./index.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout/>,
     children: [
-      {
-        path:"home",
-        element:<Home/>
-      },
+      // {
+      //   path:"home",
+      //   element:<Home/>
+      // },
       {
         path:"",
         element:<Home/>
@@ -53,7 +52,11 @@ const router = createBrowserRouter([
       {
         path: "blog/:id",
         element: <Blog/>,
-      }
+      },
+      {
+        path: "*",
+        element: <NotFound />
+      },
     ]
   },
   {

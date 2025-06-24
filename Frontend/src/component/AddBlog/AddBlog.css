@@ -45,6 +45,7 @@
 }
 
 .submit-button {
+  width: 30%;
   display: block;
   margin-left: 160px;
   padding: 10px 25px;

@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import UseUser from "../UserContext/UserContext";
 import toast from "react-hot-toast";
 import "./Blog.css";
 import Home from "../Home/Home";
 import axiosInstance from "../API/axiosInstance"
+import CircularIndeterminate from "./CircularIndeterminate";
 const baseURL = axiosInstance.defaults.baseURL;
+import { useNavigate } from "react-router-dom";
 
 export default function ViewBlog() {
   const { id } = useParams();
+  const navigate = useNavigate(); 
 
   const { CurrentUser: user } = UseUser();
   const [blog, setBlog] = useState(null);
@@ -27,6 +29,8 @@ export default function ViewBlog() {
         
         setComments(res.data.comments);
       } catch (err) {
+        navigate("/"); // Redirect to home if blog not found
+        toast.error("Failed to fetch blog. Please try again.");
         console.error("Error fetching blog:", err);
       }
     }
@@ -49,7 +53,9 @@ export default function ViewBlog() {
     }
   };
 
-  if (!blog) return <p className="loading">Loading...</p>;
+
+  if (!blog) return <CircularIndeterminate className="loading-spinner" />; // Show loading spinner if blog is not yet fetched
+
 
   return (
     <div className="blog-container">
@@ -115,7 +121,7 @@ export default function ViewBlog() {
           ))}
         </div>
         <div className="home-container">
-          <Home />
+          {/* <Home /> */}
         </div>
       </div>
     </div>

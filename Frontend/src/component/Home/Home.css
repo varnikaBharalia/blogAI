@@ -43,11 +43,24 @@
   overflow: hidden;
   background: #fff;
 }
-
 .blog-card-body {
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
   text-align: center;
 }
+
+.delete_btn {
+    color: white;
+    background-color: #e74c3c;
+    border: none;
+    padding: 4px 7px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 
 .blog-card-title {
   font-size: 1.125rem;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import UseUser from "../UserContext/UserContext";
@@ -7,28 +6,38 @@ import "./AddBlog.css";
 import axiosInstance from "../API/axiosInstance";
 
 export default function AddBlog() {
-  const { CurrentUser, setAllBlogs } = UseUser();
+  const { CurrentUser, setCurrentUser, setAllBlogs } = UseUser();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [coverImage, setCoverImage] = useState(null);
   const navigate = useNavigate();
 
-  // ✅ Redirect to signin if not logged in
   useEffect(() => {
-    if (!CurrentUser) {
-      toast.error("You must be logged in to create a blog.");
-      navigate("/signin");
-    }
-  }, [CurrentUser, navigate]);
+    const fetchData = async () => {
+      try {
+        const res = await axiosInstance.get("/home");
+        setCurrentUser(res.data.user);
+        const blogs = res.data.blogs || [];
+        setAllBlogs(blogs);
+      } catch (error) {
+        navigate("/signin");
+        console.error("Error fetching home data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
 
   const handleBlogSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("from handleblog",CurrentUser)
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("body", body);
     formData.append("coverImage", coverImage);
-    formData.append("userId", CurrentUser.id);
+    formData.append("userId", CurrentUser._id);
 
     try {
       const res = await axiosInstance.post("/blog/addNewBlog", formData, {
@@ -53,7 +62,7 @@ export default function AddBlog() {
 
   return (
     <div className="create-blog-container">
-      <form onSubmit={handleBlogSubmit} encType="multipart/form-data">
+      <form onSubmit={handleBlogSubmit} className="form-containe" encType="multipart/form-data">
         <div className="form-group">
           <label className="cover-label">Cover Image</label>
           <input

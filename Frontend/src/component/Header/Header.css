@@ -42,13 +42,24 @@
   outline: none;
 }
 
-.login-btn {
-  color: #333;
-  background-color: #f2f2f2;
+.logout-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border: none;
 }
 
-.login-btn:hover {
-  background-color: #e0e0e0;
+.logout-div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logout-btn:hover {
+  color: black;
 }
 
 .signup-btn {

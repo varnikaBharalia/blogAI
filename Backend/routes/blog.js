@@ -2,24 +2,22 @@ const { Router } = require("express");
 const Blog = require("../models/blog");
 const Comment = require("../models/comment");
 const multer = require("multer");
-const path = require("path");
 const { storage } = require("../service/cloudinary");
+const { restrictTo } = require("../middleware/auth");
 
 const router = Router();
 
 const upload = multer({ storage: storage });
 
-router.post("/addNewBlog", upload.single("coverImage"), async (req, res) => {
+router.post("/addNewBlog", restrictTo(["admin","user"]),upload.single("coverImage"), async (req, res) => {
   try {
 
-    console.log("req.file from Cloudinary:", req.file);
+    // console.log("req.file from Cloudinary:", req.file);
 
     const { title, body, userId } = req.body;
-
-    if (!userId) {
-      return res.status(400).json({ error: "Missing userId" });
+    if (!title || !body || !req.file || !userId) {
+      return res.status(400).json({ error: "Title, body, cover image, and user ID are required" });
     }
-
     const blog = await Blog.create({
       title,
       body,
@@ -34,7 +32,7 @@ router.post("/addNewBlog", upload.single("coverImage"), async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", restrictTo(["admin","user"]), async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id).populate("createdBy");
     const comments = await Comment.find({ blogId: req.params.id }).populate(
@@ -47,10 +45,23 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/comment/:id", async (req, res) => {
+router.delete("/delete/:blogId", restrictTo(["admin"]), async (req, res) => {
   try {
-    console.log("req.body from comment is ", req.body);
-    console.log("req.params from comment is ", req.params);
+    const blogId = req.params.blogId;
+
+    await Blog.findByIdAndDelete(blogId);
+
+    res.status(200).json({ message: "Blog deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting blog:", err);
+    res.status(500).json({ message: "Error deleting blog" });
+  }
+});
+
+router.post("/comment/:id", restrictTo(["admin","user"]), async (req, res) => {
+  try {
+    // console.log("req.body from comment is ", req.body);
+    // console.log("req.params from comment is ", req.params);
 
     await Comment.create({
       content: req.body.content,

@@ -1,28 +1,40 @@
 const { verifyToken } = require("../service/auth");
 
-function checkForAuthenticationCookie(cookieName) {
-    return (req,res,next)=>{
-        const tokenCookie = req.cookies.token; // Get the token from cookies
-        req.user = null;
-        if(!tokenCookie) return next(); 
-        const user = getUser(tokenCookie); 
-        req.user = user; 
-        next(); 
+function checkForAuthenticationCookie() {
+    // console.log("checkForAuthenticationCookie is running");
+  return (req, res, next) => {
+    try {
+        // console.log("inside return");
+      const tokenCookie = req.cookies.token;
+      req.user = null;
 
-        // const token = req.cookies[cookieName];
-        // if(!token)
-        // {
-        //     return next();
-        // }
-        // try{
-        //     const user = verifyToken(token);
-        //     req.user = user;
-        // }
-        // catch(err){
-        //     return res.status(401).json({message:"Unauthorized"});
-        // }
-        // return next();
-    };
+      if (!tokenCookie) {
+        return next(); // No cookie = proceed
+      }
+
+      const user = verifyToken(tokenCookie);
+      if (user) {
+        req.user = user;
+      }
+
+      return next(); // Always proceed
+    } catch (err) {
+      console.error("Error in checkForAuthenticationCookie:", err.message);
+      return next(); // Even on error, don't block route
+    }
+  };
 }
 
-module.exports = checkForAuthenticationCookie;
+
+
+
+function restrictTo(role = []) {
+    return function (req,res,next){
+        if(!req.user) return res.status(401).json({ error: "Not logged in" });
+        // console.log("from restrict-->",req.user);
+        if(!role.includes(req.user.role)) return res.status(403).json({ error: "Forbidden" });
+        return next();
+    }
+}
+
+module.exports = { checkForAuthenticationCookie, restrictTo };

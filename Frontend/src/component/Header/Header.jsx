@@ -1,8 +1,20 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink,useNavigate  } from 'react-router-dom';
 import './Header.css';
+import Button from '@mui/material/Button';
+import axiosInstance from '../API/axiosInstance';
 
 export default function Header() {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await axiosInstance.get("/user/logOut");
+      navigate("/signin");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
   return (
     <header className="header">
       <nav className="nav">
@@ -15,7 +27,7 @@ export default function Header() {
 
           {/* Navigation Links */}
           <ul className="nav-links">
-            <li><NavLink to="/home" activeClassName="active">Home</NavLink></li>
+            <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
             <li><NavLink to="/about" activeClassName="active">About</NavLink></li>
             <li><NavLink to="/contact" activeClassName="active">Contact</NavLink></li>
             <li><NavLink to="/github" activeClassName="active">AI Help</NavLink></li>
@@ -26,9 +38,11 @@ export default function Header() {
             <Link to="/addBlog" className="btn signup-btn">
               Create Blog
             </Link>
-            <Link to="/signin" className="btn login-btn">
+            <div className="logout-div">
+            <Button onClick={handleLogout} className="btn logout-btn">
               logOut
-            </Link>
+            </Button>
+            </div>
           </div>
 
 

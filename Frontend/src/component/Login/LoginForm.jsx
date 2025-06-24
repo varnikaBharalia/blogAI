@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import "./LoginForm.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import UseUser from "../UserContext/UserContext";
@@ -9,7 +8,7 @@ import axiosInstance from "../API/axiosInstance"
 
 
 export default function LoginForm() {
-  const { setCurrentUser, setAllBlogs } = UseUser();
+  
   const navigate = useNavigate(); 
 
   const containerRef = useRef(null);
@@ -50,15 +49,9 @@ export default function LoginForm() {
         password,
       });
 
-      console.log("Response from signin:", res.status);
-
       toast.success("Login successful!");
       
-      // ✅ Destructure user and blogs
-      const { user, blogs } = res.data;
-      setCurrentUser(user);
-      setAllBlogs(blogs);
-      navigate("/home");
+      navigate("/");
 
     } catch (error) {
       // ✅ Axios automatically jumps here if status is not 2xx

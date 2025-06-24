@@ -11,7 +11,6 @@ const Contact = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log({ name, email, message });
-    // You can trigger toast or API call here
   };
 
   return (
@@ -20,6 +19,7 @@ const Contact = () => {
         <div className="form_btns">
           <Button
           // is_outline={true}
+          
             text="VAI EMAIL FORM"
             icon={<MdOutlineMessage fontSize="1rem" />}
           />
