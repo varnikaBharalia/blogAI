@@ -66,8 +66,8 @@ router.delete("/delete/:blogId", restrictTo(["admin"]), async (req, res) => {
 
 router.post("/comment/:id", restrictTo(["admin","user"]), async (req, res) => {
   try {
-    // console.log("req.body from comment is ", req.body);
-    // console.log("req.params from comment is ", req.params);
+    console.log("req.body from comment is ", req.body);
+    console.log("req.params from comment is ", req.params);
 
     await Comment.create({
       content: req.body.content,
