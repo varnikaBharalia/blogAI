@@ -13,7 +13,7 @@ export default function ViewBlog() {
   const { id } = useParams();
   const navigate = useNavigate(); 
 
-  const { CurrentUser: user } = UseUser();
+  const { CurrentUser: user, setCurrentUser } = UseUser();
   const [blog, setBlog] = useState(null);
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
@@ -28,6 +28,9 @@ export default function ViewBlog() {
         setBlog(res.data.blog);
         
         setComments(res.data.comments);
+
+        const homeRes = await axiosInstance.get("/home");
+        setCurrentUser(homeRes.data.user);
       } catch (err) {
         navigate("/"); // Redirect to home if blog not found
         toast.error("Failed to fetch blog. Please try again.");
@@ -37,6 +40,8 @@ export default function ViewBlog() {
     fetchBlog(); // why this function is called here
     // The function fetchBlog is defined and immediately invoked to fetch the blog data when the component mounts.
   }, [id]);
+
+  
 
 const handleCommentSubmit = async (e) => {
   e.preventDefault();
