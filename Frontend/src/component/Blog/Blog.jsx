@@ -36,22 +36,25 @@ export default function ViewBlog() {
     }
     fetchBlog(); // why this function is called here
     // The function fetchBlog is defined and immediately invoked to fetch the blog data when the component mounts.
-  }, [id, comments]);
+  }, [id]);
 
-  const handleCommentSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axiosInstance.post(`/blog/comment/${id}`, {
-        content,
-        user,
-      });
-      toast.success("Comment added successfully!");
-      setContent("");
-    } catch (err) {
-      toast.error("Failed to add comment. Please try again.");
-      console.error("Comment submit failed:", err);
-    }
-  };
+const handleCommentSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    await axiosInstance.post(`/blog/comment/${id}`, {
+      content,
+      user,
+    });
+    toast.success("Comment added successfully!");
+    setContent("");
+    const res = await axiosInstance.get(`/blog/${id}`);
+    setComments(res.data.comments);
+  } catch (err) {
+    toast.error("Failed to add comment. Please try again.");
+    console.error("Comment submit failed:", err);
+  }
+};
+
 
 
   if (!blog) return <CircularIndeterminate className="loading-spinner" />; // Show loading spinner if blog is not yet fetched
@@ -60,7 +63,7 @@ export default function ViewBlog() {
   return (
     <div className="blog-container">
       <h1 className="blog-title">{blog.title}</h1>
-
+      {console.log(blog)}
       <div className="blog-image-wrapper">
         <img
           src={blog.coverImage}
@@ -103,11 +106,12 @@ export default function ViewBlog() {
       </h1>
       <div className="comment-Blog">
         <div className="comment-list">
+        {console.log(comments)}
           {comments.map((comment) => (
             <div key={comment._id} className="comment-card">
               <div className="comment-card-header">
                 <img
-                  src={`${baseURL}${comment.createdBy.profileImage}`}
+                  src={`${baseURL}${blog.createdBy.profileImage}`}
                   alt="User"
                   className="comment-user-image"
                   style={{ width: "40px", height: "40px" }}

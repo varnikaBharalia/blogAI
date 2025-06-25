@@ -28,12 +28,8 @@ router.post("/addNewBlog", restrictTo(["admin", "user"]), upload.single("coverIm
     res.status(201).json({ blog });
 
   } catch (err) {
-    console.error("Error while creating blog:");
-    console.error(JSON.stringify(err, null, 2)); // 🔥 Fixes `[object Object]`
-
-    return res.status(500).json({
-      error: err.message || "Failed to create blog",
-    });
+    console.error("Cloudinary Upload Error:", JSON.stringify(err, null, 2));
+      res.status(500).json({ error: err.message || "Upload failed" });
   }
 });
 
@@ -41,9 +37,7 @@ router.post("/addNewBlog", restrictTo(["admin", "user"]), upload.single("coverIm
 router.get("/:id", restrictTo(["admin","user"]), async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id).populate("createdBy");
-    const comments = await Comment.find({ blogId: req.params.id }).populate(
-      "createdBy"
-    );
+    const comments = await Comment.find({ blogId: req.params.id }).populate("createdBy");
     return res.status(200).json({ blog, comments });
   } catch (err) {
     console.error("Failed to fetch blog:", err);
@@ -66,13 +60,13 @@ router.delete("/delete/:blogId", restrictTo(["admin"]), async (req, res) => {
 
 router.post("/comment/:id", restrictTo(["admin","user"]), async (req, res) => {
   try {
-    // console.log("req.body from comment is ", req.body);
-    // console.log("req.params from comment is ", req.params);
+    console.log("req.body from comment is ", req.body);
+    console.log("req.params from comment is ", req.params);
 
     await Comment.create({
       content: req.body.content,
       blogId: req.params.id,
-      createdBy: req.body.user.id, 
+      createdBy: req.body.user._id, 
     });
 
     return res.status(201).json({ message: "Comment created successfully" });
