@@ -101,11 +101,20 @@ Blog.css
   border-radius: 0.375rem;
 }
 
-.comment-card-header {
+.comment-card-user{
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.5rem;
+}
+
+.comment-card-header span{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-delete{
+  cursor: pointer;
 }
 
 .comment-user-image {
@@ -160,6 +169,8 @@ Blog.css
   height: 100vh;
   width: 100vw;
 }
+
+
 @media screen and (max-width: 768px) {
   .blog-container {
     width: 100%;

@@ -55,6 +55,20 @@ const handleCommentSubmit = async (e) => {
   }
 };
 
+const handleDelete = async (commentId) => {
+  try {
+    await axiosInstance.delete(`/blog/comment/${commentId}`);
+    toast.success("Comment deleted successfully!");
+    
+    const res = await axiosInstance.get(`/blog/${id}`);
+    setComments(res.data.comments);
+
+  } catch (err) {
+    toast.error("Failed to delete comment.");
+    console.error("Error deleting comment:", err);
+  }
+};
+
 
 
   if (!blog) return <CircularIndeterminate className="loading-spinner" />; // Show loading spinner if blog is not yet fetched
@@ -63,7 +77,6 @@ const handleCommentSubmit = async (e) => {
   return (
     <div className="blog-container">
       <h1 className="blog-title">{blog.title}</h1>
-      {console.log(blog)}
       <div className="blog-image-wrapper">
         <img
           src={blog.coverImage}
@@ -106,10 +119,11 @@ const handleCommentSubmit = async (e) => {
       </h1>
       <div className="comment-Blog">
         <div className="comment-list">
-        {console.log(comments)}
           {comments.map((comment) => (
             <div key={comment._id} className="comment-card">
-              <div className="comment-card-header">
+            <div className="comment-card-header">  
+             {user.role === "admin" && (<span className="comment-delete" onClick={() => handleDelete(comment._id)}>❌</span>)}
+              <div className="comment-card-user">
                 <img
                   src={`${baseURL}${blog.createdBy.profileImage}`}
                   alt="User"
@@ -119,6 +133,7 @@ const handleCommentSubmit = async (e) => {
                 <span className="comment-user-name">
                   {comment.createdBy.name}
                 </span>
+              </div>
               </div>
               <p>{comment.content}</p>
             </div>

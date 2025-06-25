@@ -76,4 +76,21 @@ router.post("/comment/:id", restrictTo(["admin","user"]), async (req, res) => {
   }
 });
 
+router.delete("/comment/:id", restrictTo(["admin", "user"]), async (req, res) => {
+  try {
+    const commentId = req.params.id;
+
+    const deletedComment = await Comment.findByIdAndDelete(commentId);
+
+    if (!deletedComment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    res.status(200).json({ message: "Comment deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting comment:", err);
+    res.status(500).json({ message: "Failed to delete comment" });
+  }
+});
+
 module.exports = router;
