@@ -31,18 +31,21 @@ export default function AddBlog() {
   const handleBlogSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("from handleblog",CurrentUser)
+    // console.log("from handleblog",CurrentUser)
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("body", body);
     formData.append("coverImage", coverImage);
     formData.append("userId", CurrentUser._id);
-
     try {
       const res = await axiosInstance.post("/blog/addNewBlog", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
       });
+      console.log("res---->",res);
 
       // ✅ Add new blog to AllBlogs if it's not already present
       setAllBlogs((prevBlogs) => {
@@ -54,9 +57,15 @@ export default function AddBlog() {
 
       toast.success("Blog created successfully!");
       navigate("/");
-    } catch (error) {
+    } catch (err) {
       toast.error("Failed to create blog.");
-      console.error(error.response?.data || error.message);
+      if (err.response) {
+    console.error("Backend error response:", err.response.data);
+    alert(err.response.data.error); // 🔥 Instead of [object Object]
+  } else {
+    console.error("Unknown error:", err.message);
+    alert("Something went wrong");
+  }
     }
   };
 

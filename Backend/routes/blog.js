@@ -9,15 +9,15 @@ const router = Router();
 
 const upload = multer({ storage: storage });
 
-router.post("/addNewBlog", restrictTo(["admin","user"]),upload.single("coverImage"), async (req, res) => {
+router.post("/addNewBlog", restrictTo(["admin", "user"]), upload.single("coverImage"), async (req, res) => {
   try {
-
-    // console.log("req.file from Cloudinary:", req.file);
+    console.log("req.file from Cloudinary:", req.file);
 
     const { title, body, userId } = req.body;
     if (!title || !body || !req.file || !userId) {
       return res.status(400).json({ error: "Title, body, cover image, and user ID are required" });
     }
+
     const blog = await Blog.create({
       title,
       body,
@@ -26,11 +26,17 @@ router.post("/addNewBlog", restrictTo(["admin","user"]),upload.single("coverImag
     });
 
     res.status(201).json({ blog });
+
   } catch (err) {
-    console.error("Error while creating blog:", err);
-    return res.status(500).json({ error: "Failed to create blog" });
+    console.error("Error while creating blog:");
+    console.error(JSON.stringify(err, null, 2)); // 🔥 Fixes `[object Object]`
+
+    return res.status(500).json({
+      error: err.message || "Failed to create blog",
+    });
   }
 });
+
 
 router.get("/:id", restrictTo(["admin","user"]), async (req, res) => {
   try {

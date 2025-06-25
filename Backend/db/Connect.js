@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const uri = "mongodb+srv://hellomohit:ArPBXN5aZ7Pc3Yg2@cluster0.zij5twe.mongodb.net/hellomohit?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://blogify:ilKQAM1gKEHEONBd@cluster0.mqqne2d.mongodb.net/Cluster0?retryWrites=true&w=majority&appName=Cluster0";
 
 const connectDB = async () => {
   try {
@@ -16,3 +16,5 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+
+
