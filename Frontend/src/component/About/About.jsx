@@ -5,7 +5,7 @@ export default function About() {
                 <div className="space-y-6 md:space-y-0 md:flex md:gap-6 lg:items-center lg:gap-12">
                     <div className="md:w-5/12 lg:w-5/12">
                         <img
-                            src="https://www.shutterstock.com/image-photo/bloggingblog-concepts-ideas-white-worktable-600nw-1029506242.jpg"
+                            src="https://th.bing.com/th/id/OIP.NPStrZmfEsUrHfR8BJralQHaE8?rs=1&pid=ImgDetMain"
                             alt="image"
                             className="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
                         />
