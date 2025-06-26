@@ -4,7 +4,7 @@ const router = express.Router();
 const Blog = require("../models/blog");
 const Comment = require("../models/comment");
 const OpenAI = require("openai");
-const ChatHistory = require("../models/Chat");
+const ChatHistory = require("../models/chat");
 const { restrictTo } = require("../middleware/auth");
 require('dotenv').config();
 
