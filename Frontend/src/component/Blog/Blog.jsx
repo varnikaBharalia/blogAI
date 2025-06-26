@@ -121,6 +121,7 @@ export default function ViewBlog() {
         <div className="comment-list">
           {comments.map((comment) => (
             <div key={comment._id} className="comment-card">
+<<<<<<< HEAD
               <div className="comment-card-header">
                 {user?.role === "admin" && (
                   <span
@@ -141,6 +142,21 @@ export default function ViewBlog() {
                     {comment.createdBy.name}
                   </span>
                 </div>
+=======
+            <div className="comment-card-header">  
+             {user?.role === "admin" && (<span className="comment-delete" onClick={() => handleDelete(comment._id)}>❌</span>)}
+              <div className="comment-card-user">
+                <img
+                  src={`${baseURL}${blog.createdBy.profileImage}`}
+                  alt="User"
+                  className="comment-user-image"
+                  style={{ width: "40px", height: "40px" }}
+                />
+                <span className="comment-user-name">
+                  {comment.createdBy.name}
+                </span>
+              </div>
+>>>>>>> 71f3ac79ea791f866167de264d5fb371ef0a6b33
               </div>
               <p>{comment.content}</p>
             </div>
