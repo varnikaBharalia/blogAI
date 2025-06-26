@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
-const uri = "mongodb+srv://blogify:ilKQAM1gKEHEONBd@cluster0.mqqne2d.mongodb.net/Cluster0?retryWrites=true&w=majority&appName=Cluster0";
+require('dotenv').config();
+const uri = process.env.MONGO_URI ;
 
 const connectDB = async () => {
   try {

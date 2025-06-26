@@ -4,15 +4,15 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 require('dotenv').config();
 
 cloudinary.config({
-  cloud_name: "dzgt8rlge",
-  api_key: "338542295421347",
-  api_secret: "U45IhgD_C0jlozcJPCzy97Dv6C4",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:  process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'blogs', // optional: folder name on Cloudinary
+    folder: 'blogs',
     allowed_formats: ['jpg', 'png', 'jpeg'],
     transformation: [{ width: 800, height: 600, crop: 'limit' }],
   },

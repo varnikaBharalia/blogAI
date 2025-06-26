@@ -11,7 +11,6 @@ import LoginForm from "./component/Login/LoginForm";
 import Home from "./component/Home/Home";
 import About from "./component/About/About";
 import Contact from "./component/Contact/Contact";
-import Github from "./component/Github/Github";
 import Layout from "../Layout/Layout";
 import { UserProvider } from "./component/UserContext/UserContext";
 import AddBlog from "./component/AddBlog/AddBlog";
@@ -35,11 +34,6 @@ const router = createBrowserRouter([
       {
         path:"contact",
         element:<Contact/>
-      },
-
-      {
-        path:"github",
-        element:<Github/>
       },
       {
         path:"addBlog",
