@@ -22,7 +22,7 @@ export default function Header() {
           
           {/* Logo */}
           <Link to="/" className="logo">
-            <h1 style={{fontSize: '24px', fontWeight: 'bold' }}>Blogify</h1>
+            <h1 style={{fontSize: '24px', fontWeight: 'bold' }}>BlogAI</h1>
           </Link>
 
           {/* Navigation Links */}
