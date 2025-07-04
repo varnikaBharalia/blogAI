@@ -1,12 +1,10 @@
 🧠 blogAI – AI-Powered Blogging Platform
 =======================================
 
-blogAI is a full-stack blogging platform built using the MERN stack (MongoDB, Express.js, React.js, Node.js). 
-It enables users to create, view, and comment on blog posts through a clean user interface and a modular backend.
-It also features AI-powered content summary using OpenAI.
+blogAI is a full-stack blogging platform built using the MERN stack (MongoDB, Express.js, React.js, Node.js). It enables users to create, view, and comment on blog posts through a clean user interface and a modular backend. It also features AI-powered content summaries using OpenAI.
 
 🌐 Live Demo  
-👉 Click here to try blogAI: https://blogaifrontend.vercel.app
+👉 Click here to try blogAI: [https://blogaifrontend.vercel.app/]
 
 🛠 Tech Stack
 -------------
@@ -28,6 +26,7 @@ It also features AI-powered content summary using OpenAI.
 - 🤖 AI-generated summaries and key points via OpenAI
 - 🧭 RESTful API and Context API architecture
 - 📁 Clean, modular folder structure (frontend/backend)
+
 
 🚀 Getting Started (Local Setup)
 --------------------------------
@@ -76,11 +75,12 @@ It also features AI-powered content summary using OpenAI.
 
 > Frontend runs on http://localhost:5173
 
+
 📸 Screenshots
 --------------
+![image](https://github.com/user-attachments/assets/b4452af1-7463-4034-90c5-f245730bb5c7)
 
-![Homepage Screenshot](https://github.com/your-username/blogAI/assets/homepage.png)
-![Post Screenshot](https://github.com/your-username/blogAI/assets/post.png)
+![image](https://github.com/user-attachments/assets/225d351f-33bd-4eb1-a24f-806a7769a69a)
 
 🧠 Future Enhancements
 ----------------------
@@ -88,7 +88,7 @@ It also features AI-powered content summary using OpenAI.
 - 🔍 Add blog search and filter functionality
 - 🤖 AI-based blog generation and content suggestions
 - 📊 Dashboard with user engagement analytics
-- 🏷️ Add support for tags, categories, and author profiles
+- 🏷 Add support for tags, categories, and author profiles
 
 🙌 Acknowledgments
 ------------------
